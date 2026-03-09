@@ -1,9 +1,12 @@
 "use client";
-import { Layout, Card, List ,Row,Col} from 'antd';
-import { mockTasks } from './mockData';
+import { Layout, Card, List , Row , Col , Button} from 'antd';
+import { useTaskStore } from '../store/useTaskStore'
 const { Header, Content } = Layout;
 import style from './page.module.css';
 export default function KanBanPage(){
+const tasks = useTaskStore((state) => state.tasks);
+const deleteTask = useTaskStore((state) => state.deleteTask);
+const updateTask = useTaskStore((state) => state.updateTask);
 return(<Layout style={{ background: 'white' }}>
  <Header>KanBan Board</Header>
 <div style={{ background: 'white', padding: 0 }}>
@@ -11,9 +14,9 @@ return(<Layout style={{ background: 'white' }}>
         <Col span={8}>
             <Card title="To Do" >
              <List>
-              {mockTasks
-                  .filter(task => task.status === 'todo')
-                  .map(task => (
+              {tasks
+                  .filter((task: any) => task.status === 'todo')
+                  .map((task: any) => (
                     <List.Item key={task.id}>
                       <div>
                         <strong>{task.title}</strong>
@@ -29,9 +32,9 @@ return(<Layout style={{ background: 'white' }}>
         <Col span={8}>
             <Card title="In Progress" >
  
-            <List>{mockTasks
-                  .filter(task => task.status === 'in-progress')
-                  .map(task => (
+            <List>{tasks
+                  .filter((task:any) => task.status === 'in-progress')
+                  .map((task: any) => (
                     <List.Item key={task.id}>
                       <div>
                         <strong>{task.title}</strong>
@@ -46,9 +49,9 @@ return(<Layout style={{ background: 'white' }}>
         <Col span={8}>  
             <Card title="Done" >
  
-            <List>{mockTasks
-                  .filter(task => task.status === 'done')
-                  .map(task => (
+            <List>{tasks
+                  .filter((task: any) => task.status === 'done')
+                  .map((task: any) => (
                     <List.Item key={task.id}>
                       <div>
                         <strong>{task.title}</strong>
